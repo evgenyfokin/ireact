@@ -3,8 +3,8 @@ import Register from "./pages/register/index.jsx";
 import Login from "./pages/login/index.jsx";
 import Header from "./components/header/index.jsx";
 import Home from "./pages/home";
-import CreateCollection from "./pages/createCollection";
-import InnerCollection from "./components/innerColection";
+import CreateCollection from "./pages/collectionHub/createCollection";
+import CollectionPage from "./pages/collectionHub/сollectionPage"
 
 function App() {
     return (
@@ -15,7 +15,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/" element={<Home/>} />
                 <Route path="/create-collection" element={<CreateCollection />} />
-                <Route path="/collection/:id" component={InnerCollection} />
+                <Route path="/collection/:id" element={<CollectionPage />} />
             </Routes>
         </BrowserRouter>
     )

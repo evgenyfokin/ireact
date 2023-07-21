@@ -1,8 +1,9 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {createCollection} from "../../redux/slices/collectionsSlice";
+import {createCollection} from "../../../redux/slices/collectionsSlice";
 import {Button, TextField} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import styles from './CreateCollection.module.css'
 
 const CreateCollection = () => {
     const dispatch = useDispatch()

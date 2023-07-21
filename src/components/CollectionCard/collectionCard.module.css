@@ -1,0 +1,13 @@
+.card {
+  cursor: pointer;
+  max-width: 500px;
+  width: 40%;
+}
+
+@media (max-width: 700px) {
+  .card {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=collectionCard.module.css.map */

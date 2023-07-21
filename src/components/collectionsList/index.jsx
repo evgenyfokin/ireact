@@ -3,7 +3,7 @@ import {useEffect} from "react";
 import {fetchCollections} from "../../redux/slices/collectionsSlice";
 import CircularProgress from '@mui/material/CircularProgress'
 import {Box} from "@mui/material";
-import Colletction from "../colletction";
+import CollectionCard from "../CollectionCard";
 
 const CollectionsList = () => {
     const dispatch = useDispatch()
@@ -21,7 +21,7 @@ const CollectionsList = () => {
         content = <CircularProgress/>
     } else if (collectionsStatus === 'succeeded') {
         content = collections.map(collection => (
-            <Colletction key={collection._id} collection={collection}/>
+            <CollectionCard key={collection._id} collection={collection}/>
         ))
     } else if (collectionsStatus === 'failed') {
         content = <div>Ошибка загрузки коллекций</div>
