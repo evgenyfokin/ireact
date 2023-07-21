@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {logout} from "../../redux/userSlice.js";
+import {logout} from "../../redux/slices/userSlice.js";
 import {AppBar, Button, Toolbar, Typography} from "@mui/material";
 
 

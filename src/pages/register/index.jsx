@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useForm} from "react-hook-form";
 import {register as apiRegister} from "../../api/auth.js";
-import {loginFail, loginStart, logout, registerSuccess} from "../../redux/userSlice.js";
+import {loginFail, loginStart, logout, registerSuccess} from "../../redux/slices/userSlice.js";
 import {Alert, Button, TextField} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
