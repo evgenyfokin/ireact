@@ -17,7 +17,7 @@ const CreateCollection = () => {
     }
 
     return (
-        <form
+        <form className={styles.container}
             onSubmit={handleSubmit}>
             <TextField
                 variant="outlined"
