@@ -22,7 +22,7 @@ const Modal = ({ onSave, collection }) => {
     return (
         <div>
             <Button variant="text" color="primary" onClick={handleOpen}>
-                Edit Collection
+                Edit
             </Button>
             <MuiModal open={open} onClose={handleClose}>
                 <Dialog open={open} onClose={handleClose}>

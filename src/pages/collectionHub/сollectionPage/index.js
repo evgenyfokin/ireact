@@ -52,13 +52,13 @@ const CollectionPage = () => {
                 </>
             )}
             <Grid item>
-                <Typography variant="h1">{collection.title}</Typography>
+                <Typography variant="h3">{collection.title}</Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1">{collection.desc}</Typography>
             </Grid>
             <Grid item>
-                <Typography variant="h3">🌈Imagine some collection items here 🧙🏻‍♂️</Typography>
+                <Typography variant="h5">🌈Imagine some collection items here 🧙🏻‍♂️</Typography>
             </Grid>
         </Grid>
     );

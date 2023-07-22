@@ -1,15 +1,18 @@
 .pageContainer {
   padding: 20px 80px;
+  .buttonHolder {
+    display: flex;
+    width: 100%;
+    justify-content: right;
+  }
 }
 
-.buttonHolder {
-  display: flex;
-  width: 100%;
-  justify-content: right;
+@media (max-width: 650px) {
+  .pageContainer {
+    padding: 10px 5px;
+    .buttonHolder {
+      justify-content: center;
+    }
+  }
+
 }
-//
-//@media (max-width: 600px) {
-//  .buttonHolder {
-//    padding-right: 20px;
-//  }
-//}
