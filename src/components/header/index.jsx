@@ -2,6 +2,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {logout} from "../../redux/slices/userSlice.js";
 import {AppBar, Button, Toolbar, Typography} from "@mui/material";
+import {resetCollections} from "../../redux/slices/collectionsSlice";
+import styles from './header.module.css'
 
 
 const Header = () => {
@@ -19,11 +21,16 @@ const Header = () => {
         navigate('/register')
     }
 
+    const handleLogoClick = () => {
+        dispatch(resetCollections())
+        navigate('/')
+    }
+
     return (
-        <AppBar position="static">
+        <AppBar className={styles.container} position="static">
             <Toolbar>
-                <Typography variant="h6" component={Link} to="/"
-                            style={{flexGrow: 1, textDecoration: 'none', color: 'inherit'}}>
+                <Typography variant="h6" onClick={handleLogoClick}
+                            style={{flexGrow: 1, textDecoration: 'none', color: 'inherit', cursor: 'pointer'}}>
                     eCollect
                 </Typography>
                 {userToken ? (

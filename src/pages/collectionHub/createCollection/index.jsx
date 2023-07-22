@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {createCollection} from "../../../redux/slices/collectionsSlice";
-import {Button, TextField} from "@mui/material";
+import {createCollection, refreshData} from "../../../redux/slices/collectionsSlice";
+import {Alert, Button, TextField} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import styles from './CreateCollection.module.css'
 
@@ -11,10 +11,15 @@ const CreateCollection = () => {
     const [desc, setDesc] = useState('')
     const token = useSelector(state => state.user.token)
     const navigate = useNavigate()
+    const [showAlert, setShowAlert] = useState(false)
     const handleSubmit = event => {
-        event.preventDefault()
-        dispatch(createCollection({newCollection: {title, desc}, token}))
-            .then(()=> navigate('/'))
+        if (token) {
+            event.preventDefault()
+        dispatch(createCollection({newCollection: {title, desc}, token})).then(()=> navigate('/'))
+        } else {
+            event.preventDefault()
+            setShowAlert(true)
+        }
     }
 
     return (
@@ -33,6 +38,8 @@ const CreateCollection = () => {
                 onChange={(e) => setTitle(e.target.value)}
             />
             <TextField
+                multiline
+                rows={4}
                 variant="outlined"
                 margin="normal"
                 required
@@ -45,12 +52,16 @@ const CreateCollection = () => {
             />
             <Button
                 type="submit"
-                fullWidth
-                variant="contained"
+                variant="outlined"
                 color="primary"
             >
                 Create Collection
             </Button>
+            <div className={styles.alertContainer}>
+                {showAlert && (
+                    <Alert severity="info">Register or login to create a collection</Alert>
+                )}
+            </div>
         </form>
     )
 }

@@ -1,10 +1,10 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {fetchCollection, updateCollection} from "../../../redux/slices/collectionsSlice";
-import {deleteCollection} from "../../../api/auth";
+import {fetchCollection, removeCollection, updateCollection} from "../../../redux/slices/collectionsSlice";
 import {Button, CircularProgress, Grid, Typography} from "@mui/material";
 import Modal from "../../../components/collectionUpdateModal";
+import styles from './collectionPage.module.css'
 
 const CollectionPage = () => {
     const {id} = useParams();
@@ -13,14 +13,16 @@ const CollectionPage = () => {
 
     const collection = useSelector((state) => state.collections.collection);
     const status = useSelector((state) => state.collections.status);
+    const token = useSelector(state => state.user.token)
 
     useEffect(() => {
         dispatch(fetchCollection(id))
     }, [dispatch, id]);
 
-    // const handleDelete = () => {
-    //     dispatch(deleteCollection({ id, token: localStorage.getItem("token") })).then(() => navigate("/"));
-    // };
+    const handleDelete = () => {
+        dispatch(removeCollection({id, token,})).then(() => navigate("/"))
+    }
+
 
     const handleEdit = (updatedCollection) => {
         dispatch(updateCollection({id, updatedCollection, token: localStorage.getItem("token")}))
@@ -38,25 +40,26 @@ const CollectionPage = () => {
     }
 
     return (
-        <Grid container direction="column" alignItems="center" spacing={2}>
+        <Grid className={styles.pageContainer} container direction="column" alignItems="center" spacing={2}>
+            {token && (
+                <>
+                    <Grid item className={styles.buttonHolder}>
+                        <Modal onSave={handleEdit} collection={collection}/>
+                        <Button onClick={handleDelete} variant="text" color="error" >
+                            Remove
+                        </Button>
+                    </Grid>
+                </>
+            )}
             <Grid item>
                 <Typography variant="h1">{collection.title}</Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1">{collection.desc}</Typography>
             </Grid>
-            {localStorage.getItem("token") && (
-                <>
-                    <Grid item>
-                        <Modal onSave={handleEdit} collection={collection}/>
-                    </Grid>
-                    <Grid item>
-                        {/*<Button onClick={handleDelete} variant="contained" color="error">*/}
-                        {/*    Remove*/}
-                        {/*</Button>*/}
-                    </Grid>
-                </>
-            )}
+            <Grid item>
+                <Typography variant="h3">🌈Imagine some collection items here 🧙🏻‍♂️</Typography>
+            </Grid>
         </Grid>
     );
 };

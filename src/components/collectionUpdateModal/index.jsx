@@ -21,7 +21,7 @@ const Modal = ({ onSave, collection }) => {
 
     return (
         <div>
-            <Button variant="contained" color="primary" onClick={handleOpen}>
+            <Button variant="text" color="primary" onClick={handleOpen}>
                 Edit Collection
             </Button>
             <MuiModal open={open} onClose={handleClose}>
@@ -29,7 +29,7 @@ const Modal = ({ onSave, collection }) => {
                     <DialogTitle>Edit Collection</DialogTitle>
                     <DialogContent>
                         <TextField style={{marginTop: "15px"}} value={title} onChange={(e) => setTitle(e.target.value)}  label="Title" fullWidth />
-                        <TextField value={desc} style={{marginTop: "15px"}} onChange={(e) => setDesc(e.target.value)} label="Description" fullWidth />
+                        <TextField multiline rows={4} value={desc} style={{marginTop: "15px"}} onChange={(e) => setDesc(e.target.value)} label="Description" fullWidth />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>

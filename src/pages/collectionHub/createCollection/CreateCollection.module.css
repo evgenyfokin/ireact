@@ -1,5 +1,15 @@
 .container {
-  padding: 15px;
+  padding: 15px 80px;
+}
+.container .alertContainer {
+  padding: 5px;
+  min-height: 50px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 0;
+  }
 }
 
 /*# sourceMappingURL=CreateCollection.module.css.map */

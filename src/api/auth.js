@@ -27,12 +27,12 @@ export const patchCollection = (id, updatedCollection, token) => {
         }
     )
 }
-// export const deleteCollection = (id, token) =>
-//     axios.delete(
-//         `${API_URL}/collections/${id}`,
-//         {
-//             headers: {
-//                 'Authorization': token
-//             }
-//         }
-//     )
+export const deleteCollection = (id, token) => {
+    axios.delete(
+        `${API_URL}/collections/${id}`, {
+            headers: {
+                'Authorization': token
+            }
+        }
+    )
+}

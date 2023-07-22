@@ -1,0 +1,11 @@
+.pageContainer {
+  padding: 20px 80px;
+}
+
+.buttonHolder {
+  display: flex;
+  width: 100%;
+  justify-content: right;
+}
+
+/*# sourceMappingURL=collectionPage.module.css.map */

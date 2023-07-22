@@ -3,7 +3,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+}
+.container .alertContainer {
+  padding: 5px;
+  min-height: 50px;
 }
 
 @media (max-width: 600px) {

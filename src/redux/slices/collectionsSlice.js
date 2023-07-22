@@ -41,18 +41,29 @@ export const updateCollection = createAsyncThunk(
     }
 )
 
-// export const removeCollection = createAsyncThunk(
-//     "collections/deleteCollection",
-//     async ({id, token}) => {
-//         await deleteCollection(id, token)
-//         return id
-//     }
-// )
+export const removeCollection = createAsyncThunk(
+    "collections/deleteCollection",
+    async ({id, token}) => {
+        await deleteCollection(id, token)
+        return id
+    }
+)
+// {
+//     logout: (state) => {
+//         state.data = null;
+//     },
+// },
+
 
 const collectionsSlice = createSlice({
     name: "collections",
     initialState,
-    reducers: {},
+    reducers: {
+        resetCollections: (state) => {
+            return initialState
+        }
+
+    },
     extraReducers: {
         [fetchCollections.pending]: state => {
             state.status = "loading"
@@ -86,11 +97,26 @@ const collectionsSlice = createSlice({
                 state.collections[updatedCollectionIndex] = action.payload
             }
         },
+        [removeCollection.fulfilled]: (state, action) => {
+            state.collections = state.collections.filter(
+                collection => collection._id !== action.payload
+            );
+        }
+        // [removeCollection.pending]: (state) => {
+        //     state.collectionStatus = "loading"
+        // },
         // [removeCollection.fulfilled]: (state, action) => {
-        //     const deletedCollectionIndex = state.collections
-        //         .findIndex(collection => collection._id === action.payload)
+        //     const deletedCollectionIndex = state.collections.findIndex
+        //         .findIndex(collection => collection._id === action.payload._id)
+        //     if (deletedCollectionIndex !== - 1) {
+        //         state.collections.filter(collection => collection._id !== deletedCollectionIndex)
+        //     }
+        // },
+        // [removeCollection.rejected]: (state) => {
+        //     state.collectionStatus = "failed"
         // }
     }
 })
 
+export const {resetCollections} = collectionsSlice.actions
 export default collectionsSlice.reducer
