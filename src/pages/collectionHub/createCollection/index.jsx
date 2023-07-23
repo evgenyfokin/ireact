@@ -4,6 +4,7 @@ import {createCollection, refreshData} from "../../../redux/slices/collectionsSl
 import {Alert, Button, TextField} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import styles from './CreateCollection.module.css'
+import MyDropzone from "../../../components/myDropzone";
 
 const CreateCollection = () => {
     const dispatch = useDispatch()
@@ -62,6 +63,7 @@ const CreateCollection = () => {
                     <Alert severity="info">Register or login to create a collection</Alert>
                 )}
             </div>
+            <MyDropzone/>
         </form>
     )
 }

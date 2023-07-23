@@ -14,6 +14,8 @@ const CollectionPage = () => {
     const collection = useSelector((state) => state.collections.collection);
     const status = useSelector((state) => state.collections.status);
     const token = useSelector(state => state.user.token)
+    const userId = useSelector(state => state.user.id)
+    const isOwner = collection.user
 
     useEffect(() => {
         dispatch(fetchCollection(id))
@@ -41,7 +43,7 @@ const CollectionPage = () => {
 
     return (
         <Grid className={styles.pageContainer} container direction="column" alignItems="center" spacing={2}>
-            {token && (
+            {userId === isOwner && (
                 <>
                     <Grid item className={styles.buttonHolder}>
                         <Modal onSave={handleEdit} collection={collection}/>

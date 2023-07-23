@@ -48,11 +48,7 @@ export const removeCollection = createAsyncThunk(
         return id
     }
 )
-// {
-//     logout: (state) => {
-//         state.data = null;
-//     },
-// },
+
 
 
 const collectionsSlice = createSlice({

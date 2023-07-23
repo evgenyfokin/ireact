@@ -4,7 +4,8 @@ const initialState = {
     user: null,
     status: 'idle',
     error: null,
-    token: localStorage.getItem('token')
+    token: localStorage.getItem('token'),
+    id: localStorage.getItem('userId')
 }
 
 export const userSlice = createSlice({
@@ -19,6 +20,9 @@ export const userSlice = createSlice({
             state.user = action.payload
             state.token = action.payload.token
             localStorage.setItem('token', action.payload.token)
+            state.id = action.payload._id
+            localStorage.setItem('userId', action.payload._id)
+            console.log(state.id)
         },
         registerSuccess: (state, action) => {
             state.status = 'succeed'
@@ -33,6 +37,7 @@ export const userSlice = createSlice({
             state.status = 'idle'
             state.token = null
             localStorage.removeItem('token')
+            localStorage.removeItem('userId')
         }
     }
 })
