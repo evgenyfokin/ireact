@@ -98,19 +98,6 @@ const collectionsSlice = createSlice({
                 collection => collection._id !== action.payload
             );
         }
-        // [removeCollection.pending]: (state) => {
-        //     state.collectionStatus = "loading"
-        // },
-        // [removeCollection.fulfilled]: (state, action) => {
-        //     const deletedCollectionIndex = state.collections.findIndex
-        //         .findIndex(collection => collection._id === action.payload._id)
-        //     if (deletedCollectionIndex !== - 1) {
-        //         state.collections.filter(collection => collection._id !== deletedCollectionIndex)
-        //     }
-        // },
-        // [removeCollection.rejected]: (state) => {
-        //     state.collectionStatus = "failed"
-        // }
     }
 })
 

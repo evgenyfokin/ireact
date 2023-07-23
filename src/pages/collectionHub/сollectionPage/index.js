@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchCollection, removeCollection, updateCollection} from "../../../redux/slices/collectionsSlice";
 import {Button, CircularProgress, Grid, Typography} from "@mui/material";
-import Modal from "../../../components/collectionUpdateModal";
+import CollectionUpdateModal from "../../../components/collectionUpdateModal";
 import styles from './collectionPage.module.css'
 
 const CollectionPage = () => {
@@ -46,7 +46,7 @@ const CollectionPage = () => {
             {userId === isOwner && (
                 <>
                     <Grid item className={styles.buttonHolder}>
-                        <Modal onSave={handleEdit} collection={collection}/>
+                        <CollectionUpdateModal onSave={handleEdit} collection={collection}/>
                         <Button onClick={handleDelete} variant="text" color="error" >
                             Remove
                         </Button>
@@ -54,7 +54,7 @@ const CollectionPage = () => {
                 </>
             )}
             <Grid item>
-                <Typography variant="h3">{collection.title}</Typography>
+                <Typography variant="h4">{collection.title}</Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1">{collection.desc}</Typography>

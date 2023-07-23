@@ -5,7 +5,8 @@ const initialState = {
     status: 'idle',
     error: null,
     token: localStorage.getItem('token'),
-    id: localStorage.getItem('userId')
+    id: localStorage.getItem('userId'),
+
 }
 
 export const userSlice = createSlice({

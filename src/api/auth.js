@@ -36,3 +36,11 @@ export const deleteCollection = (id, token) => {
         }
     )
 }
+
+export const postImg = (imgData, token) => {
+    return axios.post(`${API_URL}/upload`, imgData, {
+        headers: {
+            "Authorization" : token
+        }
+    })
+}

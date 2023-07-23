@@ -1,31 +1,50 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {createCollection, refreshData} from "../../../redux/slices/collectionsSlice";
-import {Alert, Button, TextField} from "@mui/material";
-import { useNavigate } from 'react-router-dom';
+import {createCollection} from "../../../redux/slices/collectionsSlice";
+import {Alert, Button, TextField, Box} from "@mui/material";
+import {useNavigate} from 'react-router-dom';
+import {useDropzone} from 'react-dropzone';
+import {postImg} from "../../../api/auth";
 import styles from './CreateCollection.module.css'
-import MyDropzone from "../../../components/myDropzone";
+import DragAndDrop from "../../../components/dragAndDrop";
 
 const CreateCollection = () => {
-    const dispatch = useDispatch()
-    const [title, setTitle] = useState('')
-    const [desc, setDesc] = useState('')
-    const token = useSelector(state => state.user.token)
-    const navigate = useNavigate()
-    const [showAlert, setShowAlert] = useState(false)
-    const handleSubmit = event => {
+    const dispatch = useDispatch();
+    const [title, setTitle] = useState('');
+    const [desc, setDesc] = useState('');
+    const token = useSelector(state => state.user.token);
+    const navigate = useNavigate();
+    const [showAlert, setShowAlert] = useState(false);
+    const [imageUrl, setImageUrl] = useState(null);
+
+    const onDrop = async (acceptedFiles) => {
+        try {
+            const file = acceptedFiles[0];
+            const formData = new FormData();
+            formData.append('image', file);
+            const {data} = await postImg(formData, token);
+            setImageUrl(data.image_url);
+        } catch (err) {
+            console.warn(err);
+            alert('Error');
+        }
+    }
+
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
         if (token) {
-            event.preventDefault()
-        dispatch(createCollection({newCollection: {title, desc}, token})).then(()=> navigate('/'))
+            const newCollection = {title, desc};
+            if (imageUrl) newCollection.imageUrl = imageUrl;
+            dispatch(createCollection({newCollection, token})).then(() => navigate('/'));
         } else {
-            event.preventDefault()
-            setShowAlert(true)
+            setShowAlert(true);
         }
     }
 
     return (
         <form className={styles.container}
-            onSubmit={handleSubmit}>
+              onSubmit={handleSubmit}>
             <TextField
                 variant="outlined"
                 margin="normal"
@@ -51,6 +70,7 @@ const CreateCollection = () => {
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
             />
+            <DragAndDrop onImageUpload={setImageUrl} token={token} />
             <Button
                 type="submit"
                 variant="outlined"
@@ -63,7 +83,6 @@ const CreateCollection = () => {
                     <Alert severity="info">Register or login to create a collection</Alert>
                 )}
             </div>
-            <MyDropzone/>
         </form>
     )
 }
