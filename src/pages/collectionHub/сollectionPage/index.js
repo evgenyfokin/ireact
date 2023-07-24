@@ -16,6 +16,7 @@ const CollectionPage = () => {
     const token = useSelector(state => state.user.token)
     const userId = useSelector(state => state.user.id)
     const isOwner = collection.user
+    console.log(collection)
 
     useEffect(() => {
         dispatch(fetchCollection(id))

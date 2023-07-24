@@ -1,12 +1,9 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {createCollection} from "../../../redux/slices/collectionsSlice";
+import {createCollection, uploadImage} from "../../../redux/slices/collectionsSlice";
 import {Alert, Button, TextField, Box} from "@mui/material";
 import {useNavigate} from 'react-router-dom';
-import {useDropzone} from 'react-dropzone';
-import {postImg} from "../../../api/auth";
 import styles from './CreateCollection.module.css'
-import DragAndDrop from "../../../components/dragAndDrop";
 
 const CreateCollection = () => {
     const dispatch = useDispatch();
@@ -15,28 +12,25 @@ const CreateCollection = () => {
     const token = useSelector(state => state.user.token);
     const navigate = useNavigate();
     const [showAlert, setShowAlert] = useState(false);
-    const [imageUrl, setImageUrl] = useState(null);
+    const imgUrl = useSelector(state => state.collections.imgUrl)
 
-    const onDrop = async (acceptedFiles) => {
-        try {
-            const file = acceptedFiles[0];
-            const formData = new FormData();
-            formData.append('image', file);
-            const {data} = await postImg(formData, token);
-            setImageUrl(data.image_url);
-        } catch (err) {
-            console.warn(err);
-            alert('Error');
-        }
+
+
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0]
+        const imgData = new FormData()
+        imgData.append('image', file)
+        await dispatch(uploadImage({imgData, token}))
     }
-
-
     const handleSubmit = (event) => {
         event.preventDefault();
         if (token) {
-            const newCollection = {title, desc};
-            if (imageUrl) newCollection.imageUrl = imageUrl;
-            dispatch(createCollection({newCollection, token})).then(() => navigate('/'));
+            const newCollection = {
+                title,
+                desc,
+                imageUrl: imgUrl
+            }
+            dispatch(createCollection({newCollection, token})).then(()=> navigate('/'))
         } else {
             setShowAlert(true);
         }
@@ -70,7 +64,7 @@ const CreateCollection = () => {
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
             />
-            <DragAndDrop onImageUpload={setImageUrl} token={token} />
+            <input type="file" onChange={handleFileChange}/>
             <Button
                 type="submit"
                 variant="outlined"

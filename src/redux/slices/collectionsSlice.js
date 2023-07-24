@@ -1,10 +1,18 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {getCollection, getAllCollections, postCollection, patchCollection, deleteCollection} from '../../api/auth'
+import {
+    getCollection,
+    getAllCollections,
+    postCollection,
+    patchCollection,
+    deleteCollection,
+    postImg
+} from '../../api/auth'
 
 const initialState = {
     collections: [],
     collection: '',
     status: "idle",
+    imgUrl: null,
     collectionStatus: '',
     error: null
 }
@@ -49,7 +57,13 @@ export const removeCollection = createAsyncThunk(
     }
 )
 
-
+export const uploadImage = createAsyncThunk(
+    "collections/uploadImage",
+    async ({imgData, token}) => {
+        const response = await postImg(imgData, token);
+        return response.data.image_url
+    }
+)
 
 const collectionsSlice = createSlice({
     name: "collections",
@@ -97,6 +111,9 @@ const collectionsSlice = createSlice({
             state.collections = state.collections.filter(
                 collection => collection._id !== action.payload
             );
+        },
+        [uploadImage.fulfilled]: (state, action) => {
+            state.imgUrl = action.payload
         }
     }
 })

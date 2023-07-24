@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {Modal as MuiModal, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions} from "@mui/material";
-import DragAndDrop from "../dragAndDrop";
 import {useSelector} from "react-redux";
 
 const CollectionUpdateModal = ({onSave, collection}) => {
@@ -43,8 +42,6 @@ const CollectionUpdateModal = ({onSave, collection}) => {
                                    label="Title" fullWidth/>
                         <TextField multiline rows={4} value={desc} style={{marginTop: "15px"}}
                                    onChange={(e) => setDesc(e.target.value)} label="Description" fullWidth/>
-                        {imageUrl ? <Button onClick={handleRemove}>Remove image</Button> :
-                            <DragAndDrop onImageUpload={setImageUrl} token={token}/>}
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>Cancel</Button>
