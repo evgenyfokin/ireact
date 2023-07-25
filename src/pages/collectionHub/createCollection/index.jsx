@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {createCollection, uploadImage} from "../../../redux/slices/collectionsSlice";
+import {createCollection, resetImageUrl, uploadImage} from "../../../redux/slices/collectionsSlice";
 import {Alert, Button, TextField, Box} from "@mui/material";
 import {useNavigate} from 'react-router-dom';
 import styles from './CreateCollection.module.css'
@@ -22,7 +22,7 @@ const CreateCollection = () => {
         imgData.append('image', file)
         await dispatch(uploadImage({imgData, token}))
     }
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (token) {
             const newCollection = {
@@ -30,7 +30,8 @@ const CreateCollection = () => {
                 desc,
                 imageUrl: imgUrl
             }
-            dispatch(createCollection({newCollection, token})).then(()=> navigate('/'))
+           await dispatch(createCollection({newCollection, token})).then(()=> navigate('/'))
+           // await dispatch(resetImageUrl())
         } else {
             setShowAlert(true);
         }

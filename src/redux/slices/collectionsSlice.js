@@ -65,12 +65,33 @@ export const uploadImage = createAsyncThunk(
     }
 )
 
+export const createCollectionAndUploadImage = createAsyncThunk(
+    "collections/createCollectionAndUploadImage",
+    async ({ collectionData, imgData, token }, thunkAPI) => {
+
+        const response = await postImg(imgData, token);
+        const imageUrl = response.data.image_url;
+
+        const newCollectionData = {
+            ...collectionData,
+            imageUrl,
+        };
+        await thunkAPI.dispatch(createCollection(newCollectionData));
+
+        thunkAPI.dispatch(resetImageUrl());
+    }
+);
+
+
 const collectionsSlice = createSlice({
     name: "collections",
     initialState,
     reducers: {
         resetCollections: (state) => {
             return initialState
+        },
+        resetImageUrl: (state) => {
+            state.imgUrl = null
         }
 
     },
@@ -88,6 +109,7 @@ const collectionsSlice = createSlice({
         },
         [createCollection.fulfilled]: (state, action) => {
             state.collections.push(action.payload)
+            state.imgUrl = null
         },
         [fetchCollection.pending]: state => {
             state.status = "loading"
@@ -118,5 +140,5 @@ const collectionsSlice = createSlice({
     }
 })
 
-export const {resetCollections} = collectionsSlice.actions
+export const {resetCollections, resetImageUrl} = collectionsSlice.actions
 export default collectionsSlice.reducer
